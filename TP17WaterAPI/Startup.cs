@@ -27,7 +27,7 @@ namespace TP17WaterAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors(options => {
-                options.AddPolicy("MyCorsImplementationPolicy", builder => builder.WithOrigins("*"));
+                options.AddPolicy("MyCorsImplementationPolicy", builder => builder.WithOrigins("*").WithHeaders("*").WithMethods("POST,GET,DELETE,PUT,OPTIONS"));
             });
 
             services.AddDbContext<TP17WaterAPI.Models.tp17Context>();
