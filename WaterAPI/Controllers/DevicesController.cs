@@ -28,17 +28,44 @@ namespace WaterAPI.Controllers
         }
 
         // GET: api/Devices/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Device>> GetDevice(int id)
+        [HttpGet("{userId}/{label}")]
+        public List<KeyValuePair<Device, double>> GetDevice(int userId, String label)
         {
-            var device = await _context.Devices.FindAsync(id);
+            var devices = _context.Devices.ToList();
+            var iotRecord = _context.IotRecords.ToList();
+            var userDevices = new List<Device>();
+            var result = new List<KeyValuePair<Device, double>>();
 
-            if (device == null)
+            if (label == "tap")
             {
-                return NotFound();
+                label = "wash basin taps";
             }
 
-            return device;
+            for (int i = 0; i < devices.Count; i++)
+            {
+                if (devices[i].UserId == userId && devices[i].Label == label)
+                {
+                    userDevices.Add(devices[i]);
+                }
+            }
+
+
+
+            for (int j = 0; j < userDevices.Count; j++)
+            {
+                double sum = 0;
+                for (int k = 0; k < iotRecord.Count; k++)
+                {
+                    if (userDevices[j].DeviceId == iotRecord[k].DeviceId)
+                    {
+                        sum += iotRecord[k].UsedSecond.Value * iotRecord[k].FlowPerSec.Value;
+                    }
+                }
+                result.Add(new KeyValuePair<Device, double>(userDevices[j], sum));
+            }
+
+
+            return result;
         }
 
         // PUT: api/Devices/5

@@ -27,18 +27,63 @@ namespace WaterAPI.Controllers
             return await _context.IotRecords.ToListAsync();
         }
 
-        // GET: api/IotRecords/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<IotRecord>> GetIotRecord(int id)
-        {
-            var iotRecord = await _context.IotRecords.FindAsync(id);
 
-            if (iotRecord == null)
+
+        // GET: api/IotRecords/5
+        [HttpGet("{userId}")]
+        public List<KeyValuePair<String, double>> GetIotRecord(int userId)
+        {
+            var iotRecord = _context.IotRecords.ToList();
+            var devices = _context.Devices.ToList();
+            var userRecords = new List<Tuple<String, int, double>>();
+            var result = new List<KeyValuePair<String, double>>();
+
+
+            for (int i = 0; i < iotRecord.Count; i++)
             {
-                return NotFound();
+                for (int j = 0; j < devices.Count; j++)
+                {
+                    if (devices[j].UserId == userId && iotRecord[i].DeviceId == devices[j].DeviceId)
+                    {
+
+                        userRecords.Add(Tuple.Create(devices[j].Label, iotRecord[i].UsedSecond.Value, iotRecord[i].FlowPerSec.Value));
+                    }
+                }
             }
 
-            return iotRecord;
+            double shower = 0;
+            double toilet = 0;
+            double bath = 0;
+            double tap = 0;
+
+            for (int m = 0; m < userRecords.Count; m++)
+            {
+                if (userRecords[m].Item1 == "shower")
+                {
+                    shower += userRecords[m].Item2 * userRecords[m].Item3;
+                }
+                else if (userRecords[m].Item1 == "toilet")
+                {
+                    toilet += userRecords[m].Item2 * userRecords[m].Item3;
+                }
+                else if (userRecords[m].Item1 == "bath")
+                {
+                    bath += userRecords[m].Item2 * userRecords[m].Item3;
+                }
+                else
+                {
+                    tap += userRecords[m].Item2 * userRecords[m].Item3;
+                }
+            }
+
+            result.Add(new KeyValuePair<String, double>("shower", shower));
+            result.Add(new KeyValuePair<String, double>("toilet", toilet));
+            result.Add(new KeyValuePair<String, double>("bath", bath));
+            result.Add(new KeyValuePair<String, double>("tap", tap));
+
+
+
+            return result;
         }
 
         // PUT: api/IotRecords/5
