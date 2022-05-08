@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Keke\\Desktop\\TP17WaterAPI\\WaterAPI\\WaterAPI.csproj": {}
+    "C:\\Users\\Keke\\source\\repos\\WaterAPI\\WaterAPI\\WaterAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Keke\\Desktop\\TP17WaterAPI\\WaterAPI\\WaterAPI.csproj": {
+    "C:\\Users\\Keke\\source\\repos\\WaterAPI\\WaterAPI\\WaterAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Keke\\Desktop\\TP17WaterAPI\\WaterAPI\\WaterAPI.csproj",
+        "projectUniqueName": "C:\\Users\\Keke\\source\\repos\\WaterAPI\\WaterAPI\\WaterAPI.csproj",
         "projectName": "WaterAPI",
-        "projectPath": "C:\\Users\\Keke\\Desktop\\TP17WaterAPI\\WaterAPI\\WaterAPI.csproj",
+        "projectPath": "C:\\Users\\Keke\\source\\repos\\WaterAPI\\WaterAPI\\WaterAPI.csproj",
         "packagesPath": "C:\\Users\\Keke\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Keke\\Desktop\\TP17WaterAPI\\WaterAPI\\obj\\",
+        "outputPath": "C:\\Users\\Keke\\source\\repos\\WaterAPI\\WaterAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Keke\\AppData\\Roaming\\NuGet\\NuGet.Config",

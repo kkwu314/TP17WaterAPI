@@ -19,7 +19,11 @@ namespace WaterAPI.Models
 
         public virtual DbSet<Device> Devices { get; set; }
         public virtual DbSet<IotRecord> IotRecords { get; set; }
+        public virtual DbSet<ShowerHead> ShowerHeads { get; set; }
         public virtual DbSet<ShowerRecord> ShowerRecords { get; set; }
+        public virtual DbSet<SummaryShowerhead> SummaryShowerheads { get; set; }
+        public virtual DbSet<SummaryTap> SummaryTaps { get; set; }
+        public virtual DbSet<Tap> Taps { get; set; }
         public virtual DbSet<WaterData> WaterData { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -55,6 +59,33 @@ namespace WaterAPI.Models
                 entity.Property(e => e.RecordDateTime).HasColumnType("datetime");
             });
 
+            modelBuilder.Entity<ShowerHead>(entity =>
+            {
+                entity.ToTable("ShowerHead");
+
+                entity.Property(e => e.Brand).HasMaxLength(500);
+
+                entity.Property(e => e.ExpiryDate).HasMaxLength(500);
+
+                entity.Property(e => e.IntStarRating).HasColumnName("intStarRating");
+
+                entity.Property(e => e.Model).HasMaxLength(500);
+
+                entity.Property(e => e.ModelCode).HasMaxLength(500);
+
+                entity.Property(e => e.Regnumber).HasMaxLength(500);
+
+                entity.Property(e => e.StarRating).HasMaxLength(500);
+
+                entity.Property(e => e.Status).HasMaxLength(500);
+
+                entity.Property(e => e.Subtype).HasMaxLength(500);
+
+                entity.Property(e => e.Testedpressure).HasMaxLength(500);
+
+                entity.Property(e => e.Variants).HasMaxLength(500);
+            });
+
             modelBuilder.Entity<ShowerRecord>(entity =>
             {
                 entity.HasKey(e => e.RecordId)
@@ -63,6 +94,69 @@ namespace WaterAPI.Models
                 entity.ToTable("ShowerRecord");
 
                 entity.Property(e => e.RecordDate).HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<SummaryShowerhead>(entity =>
+            {
+                entity.ToTable("SummaryShowerhead");
+
+                entity.Property(e => e.AverageRating).HasColumnName("Average_rating");
+
+                entity.Property(e => e.AverageWaterConsumpLiters).HasColumnName("Average_water_consump_liters");
+
+                entity.Property(e => e.Brand).HasMaxLength(500);
+
+                entity.Property(e => e.MedianRating).HasColumnName("Median_rating");
+
+                entity.Property(e => e.MedianWaterConsumpLiters).HasColumnName("Median_water_consump_liters");
+
+                entity.Property(e => e.NOfProduct).HasColumnName("N_of_product");
+            });
+
+            modelBuilder.Entity<SummaryTap>(entity =>
+            {
+                entity.ToTable("SummaryTap");
+
+                entity.Property(e => e.AverageRating).HasColumnName("Average_rating");
+
+                entity.Property(e => e.AverageWaterConsumpLiters).HasColumnName("Average_water_consump_liters");
+
+                entity.Property(e => e.Brand).HasMaxLength(500);
+
+                entity.Property(e => e.MedianRating).HasColumnName("Median_rating");
+
+                entity.Property(e => e.MedianWaterConsumpLiters).HasColumnName("Median_water_consump_liters");
+
+                entity.Property(e => e.NOfProduct).HasColumnName("N_of_product");
+            });
+
+            modelBuilder.Entity<Tap>(entity =>
+            {
+                entity.ToTable("Tap");
+
+                entity.Property(e => e.Autoshutoff).HasMaxLength(500);
+
+                entity.Property(e => e.Brand).HasMaxLength(500);
+
+                entity.Property(e => e.ExpiryDate).HasMaxLength(500);
+
+                entity.Property(e => e.IntStarRating).HasColumnName("intStarRating");
+
+                entity.Property(e => e.Model).HasMaxLength(500);
+
+                entity.Property(e => e.ModelCode).HasMaxLength(500);
+
+                entity.Property(e => e.Regnumber).HasMaxLength(500);
+
+                entity.Property(e => e.StarRating).HasMaxLength(500);
+
+                entity.Property(e => e.Status).HasMaxLength(500);
+
+                entity.Property(e => e.Subtype).HasMaxLength(500);
+
+                entity.Property(e => e.Testedpressure).HasMaxLength(500);
+
+                entity.Property(e => e.Variants).HasMaxLength(500);
             });
 
             modelBuilder.Entity<WaterData>(entity =>

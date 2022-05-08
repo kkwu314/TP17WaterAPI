@@ -36,28 +36,22 @@ namespace WaterAPI.Controllers
             var userDevices = new List<Device>();
             var result = new List<KeyValuePair<Device, double>>();
 
-            if (label == "tap")
-            {
+            if (label == "tap") {
                 label = "wash basin taps";
             }
 
-            for (int i = 0; i < devices.Count; i++)
-            {
-                if (devices[i].UserId == userId && devices[i].Label == label)
-                {
+            for (int i = 0; i < devices.Count; i++) {
+                if (devices[i].UserId == userId && devices[i].Label == label) {
                     userDevices.Add(devices[i]);
                 }
             }
 
 
 
-            for (int j = 0; j < userDevices.Count; j++)
-            {
+            for (int j = 0; j < userDevices.Count; j++) {
                 double sum = 0;
-                for (int k = 0; k < iotRecord.Count; k++)
-                {
-                    if (userDevices[j].DeviceId == iotRecord[k].DeviceId)
-                    {
+                for (int k = 0; k < iotRecord.Count; k++) {
+                    if (userDevices[j].DeviceId == iotRecord[k].DeviceId) {
                         sum += iotRecord[k].UsedSecond.Value * iotRecord[k].FlowPerSec.Value;
                     }
                 }
